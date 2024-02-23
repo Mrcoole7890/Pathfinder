@@ -8,6 +8,7 @@ class Maze {
         this.valueMap.set(2, "Player")
         this.valueMap.set(3, "Goal")
         this.playerPosition = null
+        this.goalPosition = null
 
         if (!Array.isArray(mazeAsTwoDArray) || mazeAsTwoDArray.length == 0){
             console.warn("Cannot convert " + mazeAsTwoDArray + " object to maze")
@@ -68,6 +69,40 @@ class Maze {
         return null   
     }
 
+    // Break
+
+    getGoalPosition() {
+        if (this.maze == null) {
+            console.warn("You are attempting to find the goal postion in a null maze...")
+            return null
+        }
+        return this.goalPosition   
+    }
+
+    setGoalPosition(cords) {
+        if (this.maze == null)
+            console.warn("You are attempting to set the goal postion in a null maze...")
+
+        else if (this.getGoalPosition() != null)
+            console.warn("A goal is already inserted into the maze. There cannot be more than 1 goal in the maze.")
+
+        else if (this.maze.length <= cords[0] || 0 > cords[0])
+            console.warn("The Y cordinate is out of bounds.")
+
+        else if (this.maze[cords[0]].length <= cords[1] || 0 > cords[1])
+            console.warn("The X cordinate is out of bounds.")
+
+        else {
+            var valueAtDesiredInsertion = this.valueMap.get(this.maze[cords[1]][cords[0]])
+            if (valueAtDesiredInsertion == "Wall")
+                console.warn("Cannot insert the goal at a wall position.")
+            else if (valueAtDesiredInsertion == "Floor") {
+                this.goalPosition = cords
+                return this
+            }
+        }    
+        return null   
+    }
 }
 
 class MazeTesting {
@@ -75,6 +110,15 @@ class MazeTesting {
     constructor() {
         this.twoByTwoMaze = new Maze([[0,1],[0,0]])
         this.threeByThreeMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+
+        this.testPrintString()
+        this.testMalformedConstructorParameters()
+        this.testDefaultValueMap()
+        this.testValidGetAndSetPlayerLocation()
+        this.testInvalidGetAndSetPlayerLocation()
+        
+        this.testValidGetAndSetGoalLocation()
+        this.testInvalidGetAndSetGoalLocation()
     }
 
     isEquals(expected, actual, message) {
@@ -183,12 +227,55 @@ class MazeTesting {
             console.error("There are some issues with handeling invalid player insertions...")      
     }
 
+    // Break
+
+    testValidGetAndSetGoalLocation () {
+        var testMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+        var AllTestsPass = true
+        var expectedGoalLocation = [1,1]
+        testMaze.setGoalPosition(expectedGoalLocation)
+
+        AllTestsPass = AllTestsPass && this.isEquals(expectedGoalLocation[0], testMaze.getGoalPosition()[0])
+        AllTestsPass = AllTestsPass && this.isEquals(expectedGoalLocation[1], testMaze.getGoalPosition()[1])
+
+
+        if (AllTestsPass)
+            console.log("Valid goal insertion and query is working!")
+        else
+            console.error("Attempted To insert a goal in the valid position:\n " 
+                + expectedGoalLocation
+                + "\nin the maze:\n"
+                + testMaze.getMazeAsString()
+                + "\nThis should have been a valid insertion...")                    
+    }
+
+    testInvalidGetAndSetGoalLocation () {
+        var outOfBoundsYTooBig = [0, 3]
+        var outOfBoundsYTooSmall = [0, -1]
+        var outOfBoundsXTooBig = [3, 0]
+        var outOfBoundsXTooSmall = [-1, 0]
+        var validCord = [1,1]
+        var testMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+        var nullMaze = new Maze()
+        var AllTestsPass = true
+
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.getGoalPosition())
+        AllTestsPass = AllTestsPass && this.isEquals(null, nullMaze.getGoalPosition()) 
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setGoalPosition(outOfBoundsYTooBig))
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setGoalPosition(outOfBoundsYTooSmall))
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setGoalPosition(outOfBoundsXTooBig))
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setGoalPosition(outOfBoundsXTooSmall))
+        
+        testMaze.setGoalPosition(validCord)
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setGoalPosition(validCord))
+
+        if (AllTestsPass)
+            console.log("Invalid goal insertion and query is handeled!")
+        else
+            console.error("There are some issues with handeling invalid goal insertions...")      
+    }
+
     
 }
 
-var mt = new MazeTesting()
-mt.testPrintString()
-mt.testMalformedConstructorParameters()
-mt.testDefaultValueMap()
-mt.testValidGetAndSetPlayerLocation()
-mt.testInvalidGetAndSetPlayerLocation()
+new MazeTesting()

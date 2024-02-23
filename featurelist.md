@@ -12,8 +12,6 @@ Maze Object will:
 
 - have a get player location function **DONE**
 
-- have a function to insert a goal loaction there can only be one goal
+- have a function to insert a goal loaction there can only be one goal **DONE**
 
 - have a mapping function to convert values to their representations **DONE** 
-
- 
