@@ -3,10 +3,12 @@ class Maze {
     constructor(mazeAsTwoDArray){
         this.maze = mazeAsTwoDArray
         this.valueMap = new Map()
-        this.valueMap.set("Wall", 1)
-        this.valueMap.set("Floor", 0)
-        this.valueMap.set("Player", 2)
-        this.valueMap.set("Goal", 3)
+        this.valueMap.set(1, "Wall")
+        this.valueMap.set(0, "Floor")
+        this.valueMap.set(2, "Player")
+        this.valueMap.set(3, "Goal")
+        this.playerPosition = null
+
         if (!Array.isArray(mazeAsTwoDArray) || mazeAsTwoDArray.length == 0){
             console.error("Cannot convert " + mazeAsTwoDArray + " object to maze")
             this.maze = null
@@ -33,6 +35,39 @@ class Maze {
         return finalString
     }
 
+    getPlayerPosition() {
+        if (this.maze == null) {
+            console.error("You are attempting to find the player postion in a null maze...")
+            return null
+        }
+        return this.playerPosition   
+    }
+
+    setPlayerPosition(cords) {
+        if (this.maze == null)
+            console.error("You are attempting to set the player postion in a null maze...")
+
+        else if (this.getPlayerPosition() != null)
+            console.error("A player is already inserted into the maze. There cannot be more than 1 player in the maze.")
+
+        else if (this.maze.length <= cords[0] || 0 > cords[0])
+            console.error("The Y cordinate is out of bounds.")
+
+        else if (this.maze[cords[0]].length <= cords[1] || 0 > cords[1])
+            console.error("The X cordinate is out of bounds.")
+
+        else {
+            var valueAtDesiredInsertion = this.valueMap.get(this.maze[cords[1]][cords[0]])
+            if (valueAtDesiredInsertion == "Wall")
+                console.error("Cannot insert the player at a wall position.")
+            else if (valueAtDesiredInsertion == "Floor") {
+                this.playerPosition = cords
+                return this
+            }
+        }    
+        return null   
+    }
+
 }
 
 class MazeTesting {
@@ -54,7 +89,7 @@ class MazeTesting {
         if (expected === actual)
             return true
         else
-            console.log("Values Do Not Match:\n" + expected + " is not equal to\n" + actual + "**End**")
+            console.warn("Values Do Not Match:\n" + expected + " is not equal to\n" + actual + "**End**")
             return false
     }
 
@@ -85,7 +120,6 @@ class MazeTesting {
 
     testDefaultValueMap() {
         var testData = new Maze([[0,1,0],[0,0,0],[1,0,0]])
-
         var AllTestsPass = true
 
         AllTestsPass = AllTestsPass && this.isEquals(0, testData.valueMap.get("Floor"))
@@ -99,6 +133,52 @@ class MazeTesting {
             console.error("It seems the default value mapping has been tampered with...")
     }
 
+    testValidGetAndSetPlayerLocation () {
+        var testMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+        var AllTestsPass = true
+        var expectedPlayerLocation = [1,1]
+        console.log(testMaze.setPlayerPosition(expectedPlayerLocation))
+
+        AllTestsPass = AllTestsPass && this.isEquals(expectedPlayerLocation[0], testMaze.getPlayerPosition()[0])
+        AllTestsPass = AllTestsPass && this.isEquals(expectedPlayerLocation[1], testMaze.getPlayerPosition()[1])
+
+
+        if (AllTestsPass)
+            console.log("Valid player insertion and query is working!")
+        else
+            console.error("Attempted To insert a player in the valid position:\n " 
+                + expectedPlayerLocation
+                + "\nin the maze:\n"
+                + testMaze.getMazeAsString()
+                + "\nThis should have been a valid insertion...")                    
+    }
+
+    testInvalidGetAndSetPlayerLocation () {
+        var outOfBoundsYTooBig = [0, 3]
+        var outOfBoundsYTooSmall = [0, -1]
+        var outOfBoundsXTooBig = [3, 0]
+        var outOfBoundsXTooSmall = [-1, 0]
+        var validCord = [1,1]
+        var testMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+        var nullMaze = new Maze()
+        var AllTestsPass = true
+
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.getPlayerPosition())
+        AllTestsPass = AllTestsPass && this.isEquals(null, nullMaze.getPlayerPosition()) 
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setPlayerPosition(outOfBoundsYTooBig))
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setPlayerPosition(outOfBoundsYTooSmall))
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setPlayerPosition(outOfBoundsXTooBig))
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setPlayerPosition(outOfBoundsXTooSmall))
+        
+        testMaze.setPlayerPosition(validCord)
+        AllTestsPass = AllTestsPass && this.isEquals(null, testMaze.setPlayerPosition(validCord))
+
+        if (AllTestsPass)
+            console.log("Invalid player insertion and query is handeled!")
+        else
+            console.log("There are some issues with handeling invalid player insertions...")      
+    }
+
     
 }
 
@@ -106,3 +186,5 @@ var mt = new MazeTesting()
 mt.testPrintString()
 mt.testMalformedConstructorParameters()
 mt.testDefaultValueMap()
+mt.testValidGetAndSetPlayerLocation()
+mt.testInvalidGetAndSetPlayerLocation()
