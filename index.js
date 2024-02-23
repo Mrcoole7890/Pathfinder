@@ -2,6 +2,11 @@ class Maze {
 
     constructor(mazeAsTwoDArray){
         this.maze = mazeAsTwoDArray
+        this.valueMap = new Map()
+        this.valueMap.set("Wall", 1)
+        this.valueMap.set("Floor", 0)
+        this.valueMap.set("Player", 2)
+        this.valueMap.set("Goal", 3)
         if (!Array.isArray(mazeAsTwoDArray) || mazeAsTwoDArray.length == 0){
             console.error("Cannot convert " + mazeAsTwoDArray + " object to maze")
             this.maze = null
@@ -27,6 +32,7 @@ class Maze {
         }
         return finalString
     }
+
 }
 
 class MazeTesting {
@@ -76,8 +82,27 @@ class MazeTesting {
         if (AllTestsPass)
             console.log("All malformed maze checks pass!")
     }
+
+    testDefaultValueMap() {
+        var testData = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+
+        var AllTestsPass = true
+
+        AllTestsPass = AllTestsPass && this.isEquals(0, testData.valueMap.get("Floor"))
+        AllTestsPass = AllTestsPass && this.isEquals(1, testData.valueMap.get("Wall"))
+        AllTestsPass = AllTestsPass && this.isEquals(2, testData.valueMap.get("Player"))
+        AllTestsPass = AllTestsPass && this.isEquals(3, testData.valueMap.get("Goal"))
+
+        if (AllTestsPass)
+            console.log("Default Value Mapping works as expected!")
+        else
+            console.error("It seems the default value mapping has been tampered with...")
+    }
+
+    
 }
 
 var mt = new MazeTesting()
 mt.testPrintString()
 mt.testMalformedConstructorParameters()
+mt.testDefaultValueMap()

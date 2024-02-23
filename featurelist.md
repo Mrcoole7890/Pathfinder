@@ -14,6 +14,6 @@ Maze Object will:
 
 - have a function to insert a goal loaction there can only be one goal
 
-- have a mapping function to convert values to their representations 
+- have a mapping function to convert values to their representations **DONE** 
 
  
