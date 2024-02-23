@@ -122,10 +122,10 @@ class MazeTesting {
         var testData = new Maze([[0,1,0],[0,0,0],[1,0,0]])
         var AllTestsPass = true
 
-        AllTestsPass = AllTestsPass && this.isEquals(0, testData.valueMap.get("Floor"))
-        AllTestsPass = AllTestsPass && this.isEquals(1, testData.valueMap.get("Wall"))
-        AllTestsPass = AllTestsPass && this.isEquals(2, testData.valueMap.get("Player"))
-        AllTestsPass = AllTestsPass && this.isEquals(3, testData.valueMap.get("Goal"))
+        AllTestsPass = AllTestsPass && this.isEquals("Floor", testData.valueMap.get(0))
+        AllTestsPass = AllTestsPass && this.isEquals("Wall", testData.valueMap.get(1))
+        AllTestsPass = AllTestsPass && this.isEquals("Player", testData.valueMap.get(2))
+        AllTestsPass = AllTestsPass && this.isEquals("Goal", testData.valueMap.get(3))
 
         if (AllTestsPass)
             console.log("Default Value Mapping works as expected!")
@@ -137,7 +137,7 @@ class MazeTesting {
         var testMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
         var AllTestsPass = true
         var expectedPlayerLocation = [1,1]
-        console.log(testMaze.setPlayerPosition(expectedPlayerLocation))
+        testMaze.setPlayerPosition(expectedPlayerLocation)
 
         AllTestsPass = AllTestsPass && this.isEquals(expectedPlayerLocation[0], testMaze.getPlayerPosition()[0])
         AllTestsPass = AllTestsPass && this.isEquals(expectedPlayerLocation[1], testMaze.getPlayerPosition()[1])
