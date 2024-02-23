@@ -100,6 +100,8 @@ class MazeTesting {
         if (   this.isEquals(expectedTwoByTwoMazeToString, this.twoByTwoMaze.getMazeAsString())
             && this.isEquals(expectedThreeByThreeMazeToString, this.threeByThreeMaze.getMazeAsString()))
             console.log("All maze as string tests are passing!")
+        else 
+            console.error("Maze to string convertions are not working as expected")
     }
 
     testMalformedConstructorParameters() {
@@ -116,6 +118,8 @@ class MazeTesting {
 
         if (AllTestsPass)
             console.log("All malformed maze checks pass!")
+        else 
+            console.error("There are some malformed maze checks not being handeled")
     }
 
     testDefaultValueMap() {
@@ -130,7 +134,7 @@ class MazeTesting {
         if (AllTestsPass)
             console.log("Default Value Mapping works as expected!")
         else
-            console.warn("It seems the default value mapping has been tampered with...")
+            console.error("It seems the default value mapping has been tampered with...")
     }
 
     testValidGetAndSetPlayerLocation () {
@@ -146,7 +150,7 @@ class MazeTesting {
         if (AllTestsPass)
             console.log("Valid player insertion and query is working!")
         else
-            console.warn("Attempted To insert a player in the valid position:\n " 
+            console.error("Attempted To insert a player in the valid position:\n " 
                 + expectedPlayerLocation
                 + "\nin the maze:\n"
                 + testMaze.getMazeAsString()
@@ -176,7 +180,7 @@ class MazeTesting {
         if (AllTestsPass)
             console.log("Invalid player insertion and query is handeled!")
         else
-            console.log("There are some issues with handeling invalid player insertions...")      
+            console.error("There are some issues with handeling invalid player insertions...")      
     }
 
     
