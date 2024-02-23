@@ -10,14 +10,14 @@ class Maze {
         this.playerPosition = null
 
         if (!Array.isArray(mazeAsTwoDArray) || mazeAsTwoDArray.length == 0){
-            console.error("Cannot convert " + mazeAsTwoDArray + " object to maze")
+            console.warn("Cannot convert " + mazeAsTwoDArray + " object to maze")
             this.maze = null
         }
         else {
             var mazeWidth = mazeAsTwoDArray[0].length;
             for(var i = 0; i < mazeAsTwoDArray.length; i++){
                 if (mazeAsTwoDArray[i].length != mazeWidth){
-                    console.error("Width of array rows is not uniform")
+                    console.warn("Width of array rows is not uniform")
                     this.maze = null            
                 }
             }  
@@ -37,7 +37,7 @@ class Maze {
 
     getPlayerPosition() {
         if (this.maze == null) {
-            console.error("You are attempting to find the player postion in a null maze...")
+            console.warn("You are attempting to find the player postion in a null maze...")
             return null
         }
         return this.playerPosition   
@@ -45,21 +45,21 @@ class Maze {
 
     setPlayerPosition(cords) {
         if (this.maze == null)
-            console.error("You are attempting to set the player postion in a null maze...")
+            console.warn("You are attempting to set the player postion in a null maze...")
 
         else if (this.getPlayerPosition() != null)
-            console.error("A player is already inserted into the maze. There cannot be more than 1 player in the maze.")
+            console.warn("A player is already inserted into the maze. There cannot be more than 1 player in the maze.")
 
         else if (this.maze.length <= cords[0] || 0 > cords[0])
-            console.error("The Y cordinate is out of bounds.")
+            console.warn("The Y cordinate is out of bounds.")
 
         else if (this.maze[cords[0]].length <= cords[1] || 0 > cords[1])
-            console.error("The X cordinate is out of bounds.")
+            console.warn("The X cordinate is out of bounds.")
 
         else {
             var valueAtDesiredInsertion = this.valueMap.get(this.maze[cords[1]][cords[0]])
             if (valueAtDesiredInsertion == "Wall")
-                console.error("Cannot insert the player at a wall position.")
+                console.warn("Cannot insert the player at a wall position.")
             else if (valueAtDesiredInsertion == "Floor") {
                 this.playerPosition = cords
                 return this
@@ -130,7 +130,7 @@ class MazeTesting {
         if (AllTestsPass)
             console.log("Default Value Mapping works as expected!")
         else
-            console.error("It seems the default value mapping has been tampered with...")
+            console.warn("It seems the default value mapping has been tampered with...")
     }
 
     testValidGetAndSetPlayerLocation () {
@@ -146,7 +146,7 @@ class MazeTesting {
         if (AllTestsPass)
             console.log("Valid player insertion and query is working!")
         else
-            console.error("Attempted To insert a player in the valid position:\n " 
+            console.warn("Attempted To insert a player in the valid position:\n " 
                 + expectedPlayerLocation
                 + "\nin the maze:\n"
                 + testMaze.getMazeAsString()
