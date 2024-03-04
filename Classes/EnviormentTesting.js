@@ -4,6 +4,8 @@ class EnviormentTesting {
         this.test = testingUtility
         this.testSetPlayerLocation()
         this.testInvalidSetPlayerLocation()
+        this.testValidSetGoalLocation()
+        this.testInvalidSetGoalLocation()
     }
 
     testSetPlayerLocation() {
@@ -18,8 +20,6 @@ class EnviormentTesting {
         ]
 
         var AllTestsPass = true
-
-        console.log(testData)
 
         for (var i = 0; i < testData.length; i++)
             AllTestsPass = AllTestsPass && this.test.isEquals(testData[i][0], testData[i][1])
@@ -49,8 +49,6 @@ class EnviormentTesting {
 
         var AllTestsPass = true
 
-        console.log(testData)
-
         for (var i = 0; i < testData.length; i++)
             AllTestsPass = AllTestsPass && this.test.isEquals(testData[i][0], testData[i][1])
         
@@ -63,7 +61,54 @@ class EnviormentTesting {
     testGetPlayerLocation() {
     }
 
-    testSetGoalLocation() {
+    testValidSetGoalLocation() {
+        var envUnderTest = new Enviorment()
+        var setEnvUnderTest = new Enviorment()
+        setEnvUnderTest.setMaze(new Maze([[0,1,0],[0,0,0],[1,0,0]]))
+        setEnvUnderTest.setGoalLocation([1,1])
+        var testData = [
+            [null, envUnderTest.goal.getCords()],
+            [1, setEnvUnderTest.goal.getCords()[0]],
+            [1, setEnvUnderTest.goal.getCords()[1]]       
+        ]
+
+        var AllTestsPass = true
+
+        for (var i = 0; i < testData.length; i++)
+            AllTestsPass = AllTestsPass && this.test.isEquals(testData[i][0], testData[i][1])
+        
+        if (AllTestsPass)
+            console.log("Set goal at valid location method is working!")
+        else 
+            console.error("Set goal at valid location method is not working...") 
+    }
+
+    testInvalidSetGoalLocation() {
+        var arrayOfInvalidCords = [
+            [-1,0],
+            [3,0],
+            [0,-1],
+            [0,3]
+        ]
+        var validMazeArray = [[0,1,0],[0,0,0],[1,0,0]]
+        var testData = new Array()
+        for (var i = 0; i < arrayOfInvalidCords.length; i++) {
+            var tempEnv = new Enviorment()
+            var tempMaze = new Maze(validMazeArray)
+            tempEnv.setMaze(tempMaze)
+            tempEnv.setGoalLocation(arrayOfInvalidCords[i])
+            testData.push([null, tempEnv.goal.getCords()])
+        }
+
+        var AllTestsPass = true
+
+        for (var i = 0; i < testData.length; i++)
+            AllTestsPass = AllTestsPass && this.test.isEquals(testData[i][0], testData[i][1])
+        
+        if (AllTestsPass)
+            console.log("Set goal at invalid location method is working!")
+        else 
+            console.error("Set goal at invalid location method is not working...") 
     }
 
     testGetGoalLocation() {

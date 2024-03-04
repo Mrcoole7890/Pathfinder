@@ -46,12 +46,25 @@ class Enviorment {
     }
     
     getPlayerLocation() {
+        return this.player.getPlayerLocation()
     }
 
     setGoalLocation(cords) {
+        if (this.getMaze().maze.length <= cords[0]){
+            console.warn("The Y cordinate cannot be larger than the height of the maze")
+            this.goal.setCords(null)
+            return null
+        } 
+        else if (this.getMaze().maze[0].length <= cords[1]){
+            console.warn("The X cordinate cannot be larger than the height of the maze")
+            this.goal.setCords(null)
+            return null
+        } 
+        this.goal.setCords(cords)  
     }
 
     getGoalLocation() {
+        return this.goal.getPlayerLocation()
     }
 
     isGoalReached() {
