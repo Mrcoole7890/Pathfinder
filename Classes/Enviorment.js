@@ -46,7 +46,7 @@ class Enviorment {
     }
     
     getPlayerLocation() {
-        return this.player.getPlayerLocation()
+        return this.player.getCords()
     }
 
     setGoalLocation(cords) {
@@ -64,10 +64,28 @@ class Enviorment {
     }
 
     getGoalLocation() {
-        return this.goal.getPlayerLocation()
+        return this.goal.getCords()
     }
 
     isGoalReached() {
+        if (this.getPlayerLocation() == null){
+            console.warn("Goal cannot be reached if the player is null")
+            return false
+        }
+        else if (this.getGoalLocation() == null){
+            console.warn("Goal cannot be reached if it is null")
+            return false
+        }
+        else if (this.getPlayerLocation()[0] == this.getGoalLocation()[0]
+         && this.getPlayerLocation()[1] == this.getGoalLocation()[1])
+            return true
+        else {
+            console.warn("The goal has not been reached\n Player " 
+                + this.getPlayerLocation() + "\n Goal "
+                + this.getGoalLocation())
+            return false
+        }
+        
     }
 
     movePlayer(direction) {

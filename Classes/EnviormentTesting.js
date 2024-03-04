@@ -6,6 +6,7 @@ class EnviormentTesting {
         this.testInvalidSetPlayerLocation()
         this.testValidSetGoalLocation()
         this.testInvalidSetGoalLocation()
+        this.testIsGoalReached()
     }
 
     testSetPlayerLocation() {
@@ -115,6 +116,30 @@ class EnviormentTesting {
     }
 
     testIsGoalReached() {
+        var envUnderTest = new Enviorment()
+        var validLocation = [1,1]
+        var invalidLocation = [0,1]
+
+        envUnderTest.setMaze(new Maze([[0,1,0],[0,0,0],[1,0,0]]))
+        var testData = new Array()
+
+        testData.push([false, envUnderTest.isGoalReached()])
+        envUnderTest.setGoalLocation(validLocation)
+        testData.push([false, envUnderTest.isGoalReached()])
+        envUnderTest.setPlayerLocation(validLocation)
+        testData.push([true, envUnderTest.isGoalReached()])
+        envUnderTest.setPlayerLocation(invalidLocation)
+        testData.push([false, envUnderTest.isGoalReached()])
+
+        var AllTestsPass = true
+
+        for (var i = 0; i < testData.length; i++)
+            AllTestsPass = AllTestsPass && this.test.isEquals(testData[i][0], testData[i][1])
+        
+        if (AllTestsPass)
+            console.log("Is player at goal location method is working!")
+        else 
+            console.error("Is player at goal location method is not working...") 
     }
 
     testMovePlayer() {
