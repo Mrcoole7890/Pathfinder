@@ -7,6 +7,7 @@ class EnviormentTesting {
         this.testValidSetGoalLocation()
         this.testInvalidSetGoalLocation()
         this.testIsGoalReached()
+        this.testMovePlayer()
     }
 
     testSetPlayerLocation() {
@@ -143,9 +144,41 @@ class EnviormentTesting {
     }
 
     testMovePlayer() {
-    }
 
-    testGetValidPlayerMovesAt(cords) {
+        var envUnderTest = new Enviorment()
+        envUnderTest.setMaze(new Maze([[0,1,0],[0,0,0],[1,0,0]]))
+        var topLeftLocation = [0,0]
+        console.log(envUnderTest.getMaze().maze)
+        var bottomRightLocation = [envUnderTest.getMaze().maze.length-1, envUnderTest.getMaze().maze[0].length-1]
+        console.log(bottomRightLocation)
+        envUnderTest.setPlayerLocation(topLeftLocation)
+        var invalidMoveOptions = [0, 1, 2, 3, "left", "up"]
+        var validMoveOptions =   ["down", "right"]
+        var testData = new Array()
+
+        for(var i = 0; i < invalidMoveOptions.length; i++)
+            testData.push([false, envUnderTest.isValidMove(invalidMoveOptions[i])])
+        for(var i = 0; i < validMoveOptions.length; i++)
+            testData.push([true, envUnderTest.isValidMove(validMoveOptions[i])])
+
+        envUnderTest.setPlayerLocation(bottomRightLocation)
+        invalidMoveOptions = ["down", "right"]
+        validMoveOptions = ["left", "up"]
+
+        for(var i = 0; i < invalidMoveOptions.length; i++)
+            testData.push([false, envUnderTest.isValidMove(invalidMoveOptions[i])])
+        for(var i = 0; i < validMoveOptions.length; i++)
+            testData.push([true, envUnderTest.isValidMove(validMoveOptions[i])])
+
+        var AllTestsPass = true
+
+        for (var i = 0; i < testData.length; i++)
+            AllTestsPass = AllTestsPass && this.test.isEqualsWithMessage(testData[i][0], testData[i][1], "Check values at index " + i)
+        
+        if (AllTestsPass)
+            console.log("Player move method is working!")
+        else 
+            console.error("Player move method is not working...") 
     }
 }
 

@@ -12,7 +12,7 @@ TestingUtility Object:
 
 class TestingUtility {
 
-    isEquals(expected, actual, message) {
+    isEqualsWithMessage(expected, actual, message) {
         if (expected === actual)
             return true
         else

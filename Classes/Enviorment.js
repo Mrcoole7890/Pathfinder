@@ -85,12 +85,67 @@ class Enviorment {
                 + this.getGoalLocation())
             return false
         }
-        
     }
 
     movePlayer(direction) {
+        var currPlayerLocation = this.getPlayerLocation()
+        if (currPlayerLocation == null){
+            console.warn("Attempting to move a player that dosent exist.")
+            return false
+        }
+        switch(direction) {
+            case "up":
+                this.setPlayerLocation([currPlayerLocation[0]-1, currPlayerLocation[1]])
+                break
+            case "down":
+                this.setPlayerLocation([currPlayerLocation[0]+1, currPlayerLocation[1]])
+                break
+            case "left":
+                this.setPlayerLocation([currPlayerLocation[0], currPlayerLocation[1]-1])
+                break
+            case "right":
+                this.setPlayerLocation([currPlayerLocation[0], currPlayerLocation[1]+1])
+                break
+            default:
+                console.warn("the direction \"" + direction + "\" is not a valid direction")
+                break
+        }
+        if ((this.getPlayerLocation()[0] == currPlayerLocation[0] && this.getPlayerLocation()[1] == currPlayerLocation[1]) || this.getPlayerLocation() == null) {
+            console.warn("Attempting to move player out of bounds of the maze.")
+            this.setPlayerLocation(currPlayerLocation)
+            return false
+        }
+        else return true
+
+    }
+
+    isValidMove(direction) {
+        var currPlayerLocation = this.getPlayerLocation()
+        if(this.movePlayer(direction) == true){
+            this.setPlayerLocation(currPlayerLocation)
+            return true
+        }
+        else{
+            console.warn("Cannot move player in the direction (" + direction + ")")
+            return false
+        } 
     }
 
     getValidPlayerMoves() {
+        var possibleDirections = [
+            "left",
+            "right",
+            "up",
+            "down"
+        ]
+
+        var validDirections = new Array()
+
+        for (var i = 0; i < possibleDirections.length; i++) {
+            if (this.isValidMove(possibleDirections[i]))
+                validDirections.push()
+        }
+
+        return validDirections
     }
 }
