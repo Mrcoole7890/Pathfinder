@@ -95,15 +95,31 @@ class Enviorment {
         }
         switch(direction) {
             case "up":
+                if (this.maze.getValueAt([currPlayerLocation[0]-1, currPlayerLocation[1]]) == "Wall"){
+                    console.warn("Cannot move the player " + direction + " into a wall")
+                    return false
+                }
                 this.setPlayerLocation([currPlayerLocation[0]-1, currPlayerLocation[1]])
                 break
             case "down":
+                if (this.maze.getValueAt([currPlayerLocation[0]+1, currPlayerLocation[1]]) == "Wall") {
+                    console.warn("Cannot move the player " + direction + " into a wall")
+                    return false
+                }
                 this.setPlayerLocation([currPlayerLocation[0]+1, currPlayerLocation[1]])
                 break
             case "left":
+                if (this.maze.getValueAt([currPlayerLocation[0], currPlayerLocation[1]-1]) == "Wall") {
+                    console.warn("Cannot move the player " + direction + " into a wall")
+                    return false
+                }
                 this.setPlayerLocation([currPlayerLocation[0], currPlayerLocation[1]-1])
                 break
             case "right":
+                if (this.maze.getValueAt([currPlayerLocation[0], currPlayerLocation[1]+1]) == "Wall") {
+                    console.warn("Cannot move the player " + direction + " into a wall")
+                    return false
+                }
                 this.setPlayerLocation([currPlayerLocation[0], currPlayerLocation[1]+1])
                 break
             default:
