@@ -36,6 +36,39 @@ class Maze {
         }
     }
 
+    getWidth() {
+        if (this.maze != null)
+            return this.maze[0].length
+        return false
+    }
+
+    getHeight() {
+        if (this.maze != null)
+            return this.maze.length
+        return false
+    }
+
+    getValueAt(cord) {
+        if (cord == null) {
+            console.warn("Cannot get value of null cordinate")
+            return null
+        }
+        else if (this.maze == null) {
+            console.warn("Cannot get value from a null maze")
+            return null
+        }
+        else if (cord[1] < 0 || cord[1] >= this.maze.length){
+            console.warn("Attmpting to get a value that is out of bounds")
+            return null
+        }
+        else if (cord[0] < 0 || cord[0] >= this.maze[cord[1]].length){
+            console.warn("Attmpting to get a value that is out of bounds")
+            return null
+        }
+        else
+            return this.valueMap.get(this.maze[cord[0]][cord[1]])
+    }
+
     getMazeAsString() {
         if (this.maze == null) return null
         var finalString = " "
