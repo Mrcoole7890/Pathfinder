@@ -20,6 +20,7 @@ class MazeTesting {
         this.testPrintString()
         this.testMalformedConstructorParameters()
         this.testDefaultValueMap()
+        this.testGetValueAt()
     }
 
     testPrintString() {
@@ -64,6 +65,27 @@ class MazeTesting {
             console.log("Default Value Mapping works as expected!")
         else
             console.error("It seems the default value mapping has been tampered with...")
+    }
+
+    testGetValueAt() {
+        var testMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+        var testData = new Array()
+        testData.push([null, testMaze.getValueAt([3,0])])
+        testData.push([null, testMaze.getValueAt([0,3])])
+        testData.push([null, testMaze.getValueAt([-1,0])])
+        testData.push([null, testMaze.getValueAt([0,-1])])
+        testData.push(["Floor", testMaze.getValueAt([0,0])])
+        testData.push(["Wall", testMaze.getValueAt([1,0])])
+        
+        var AllTestsPass = true
+
+        for (let i = 0; i < testData.length; i++)
+            AllTestsPass = AllTestsPass && this.test.isEquals(testData[i][0], testData[i][1])
+
+        if (AllTestsPass)
+            console.log("Get value at cords is worrking as expected!")
+        else
+            console.error("Get value at cords is not working as expected...")
     }
 }
 
