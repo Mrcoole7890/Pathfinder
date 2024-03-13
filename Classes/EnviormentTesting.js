@@ -146,11 +146,9 @@ class EnviormentTesting {
     testMovePlayer() {
 
         var envUnderTest = new Enviorment()
-        envUnderTest.setMaze(new Maze([[0,1,0],[0,0,0],[1,0,0]]))
+        envUnderTest.setMaze(new Maze([[0,0,0],[0,0,0],[0,0,0]]))
         var topLeftLocation = [0,0]
-        console.log(envUnderTest.getMaze().maze)
         var bottomRightLocation = [envUnderTest.getMaze().maze.length-1, envUnderTest.getMaze().maze[0].length-1]
-        console.log(bottomRightLocation)
         envUnderTest.setPlayerLocation(topLeftLocation)
         var invalidMoveOptions = [0, 1, 2, 3, "left", "up"]
         var validMoveOptions =   ["down", "right"]
@@ -169,6 +167,14 @@ class EnviormentTesting {
             testData.push([false, envUnderTest.isValidMove(invalidMoveOptions[i])])
         for(var i = 0; i < validMoveOptions.length; i++)
             testData.push([true, envUnderTest.isValidMove(validMoveOptions[i])])
+
+        envUnderTest.setMaze(new Maze([[0,1,0],[1,0,1],[0,1,0]]))
+        var middleLocation = [1,1]
+        envUnderTest.setPlayerLocation(middleLocation)
+        var invalidMoveOptions = ["left", "up", "down", "right"]
+
+        for(var i = 0; i < invalidMoveOptions.length; i++)
+            testData.push([false, envUnderTest.isValidMove(invalidMoveOptions[i])])
 
         var AllTestsPass = true
 
