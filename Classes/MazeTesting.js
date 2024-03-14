@@ -68,7 +68,7 @@ class MazeTesting {
     }
 
     testGetValueAt() {
-        var testMaze = new Maze([[0,1,0],[0,0,0],[1,0,0]])
+        var testMaze = new Maze([[0,0,0],[1,0,0],[1,0,0]])
         var testData = new Array()
         testData.push([null, testMaze.getValueAt([3,0])])
         testData.push([null, testMaze.getValueAt([0,3])])
