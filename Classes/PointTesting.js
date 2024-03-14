@@ -12,6 +12,7 @@ class PointTesting {
         this.test = testingUtility
         this.testInvalidPointConstructor()
         this.testValidPointConstructor()
+        this.testIsEquals()
     }
 
     testValidPointConstructor() {
@@ -64,6 +65,32 @@ class PointTesting {
             console.log("Invalid Point cordinate checks are working as expected!")
         else 
             console.error("Invalid Point cordinate checks are not working...")
+    
+        return AllTestsPass
+    }
+
+    testIsEquals() {
+        var pointOne = new Point([1,1])
+        var pointTwo = new Point([1,1])
+        var pointThree = new Point(null)
+        var pointFour = new Point([1,5])
+
+        var testData = [
+            [true, pointOne.isEquals(pointTwo)],
+            [true, pointThree.isEquals(new Point(null))],
+            [false, pointThree.isEquals(pointTwo)],
+            [false, pointOne.isEquals(pointFour)]
+        ]
+
+        var AllTestsPass = true
+
+        for (var i = 0; i < testData.length; i++)
+            AllTestsPass = AllTestsPass && this.test.isEqualsWithMessage(testData[i][0], testData[i][1], "check index at " + i)
+
+        if (AllTestsPass)
+            console.log("Is Equals working as expected!")
+        else 
+            console.error("Is Equals not working...")
     
         return AllTestsPass
     }
