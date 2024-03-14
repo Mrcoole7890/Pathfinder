@@ -2,6 +2,7 @@ class DisplayTesting {
     constructor(testingUtility) {
         this.test = testingUtility
         this.validateWidthAndHeightOfDisplay()
+        this.cleanUp()
     }
 
     validateWidthAndHeightOfDisplay() {
