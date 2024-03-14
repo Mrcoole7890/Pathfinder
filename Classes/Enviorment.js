@@ -159,7 +159,7 @@ class Enviorment {
 
         for (var i = 0; i < possibleDirections.length; i++) {
             if (this.isValidMove(possibleDirections[i]))
-                validDirections.push()
+                validDirections.push(possibleDirections[i])
         }
 
         return validDirections
