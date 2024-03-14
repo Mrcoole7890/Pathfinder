@@ -57,11 +57,11 @@ class Maze {
             console.warn("Cannot get value from a null maze")
             return null
         }
-        else if (cord[1] < 0 || cord[1] >= this.maze.length){
+        else if (cord[0] < 0 || cord[0] >= this.maze.length){
             console.warn("Attmpting to get a value that is out of bounds")
             return null
         }
-        else if (cord[0] < 0 || cord[0] >= this.maze[cord[1]].length){
+        else if (cord[1] < 0 || cord[1] >= this.maze[cord[0]].length){
             console.warn("Attmpting to get a value that is out of bounds")
             return null
         }
