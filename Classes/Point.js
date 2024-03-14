@@ -37,4 +37,15 @@ class Point {
     getCords() {
         return this.cords
     }
+
+    isEquals(otherCords) {
+        if ((otherCords.getCords() == null && !(this.getCords() == null)) || (!(otherCords.getCords() == null) && this.getCords() == null))
+            return false
+        else if (otherCords.getCords() == null && this.cords == null)
+            return true
+        else if (otherCords.getCords()[0] == this.cords[0]  && otherCords.getCords()[1] == this.cords[1])
+            return true
+        else
+            return false
+    }
 }
