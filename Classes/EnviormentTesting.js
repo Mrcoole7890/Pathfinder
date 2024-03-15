@@ -8,6 +8,7 @@ class EnviormentTesting {
         this.testInvalidSetGoalLocation()
         this.testIsGoalReached()
         this.testMovePlayer()
+        this.testGetValidPlayerMovesAt()
     }
 
     testSetPlayerLocation() {
@@ -185,6 +186,56 @@ class EnviormentTesting {
             console.log("Player move method is working!")
         else 
             console.error("Player move method is not working...") 
+    }
+
+    testGetValidPlayerMovesAt() {
+        var envUnderTest = new Enviorment()
+        envUnderTest.setMaze(new Maze([[0,0,0],[0,0,0],[0,0,0]]))
+        var playerLocation = [0,0]
+        envUnderTest.setPlayerLocation(playerLocation)
+        var validMoveOptions =  ["down", "right"]
+        var testData = new Array()
+        var actualReturnedValues = envUnderTest.getValidPlayerMovesAt(playerLocation)
+
+        if (!Array.isArray(actualReturnedValues)) {
+            console.error("Method getValidPlayerMovesAt is not returning an array...")
+            return                  
+        }
+
+        else if (actualReturnedValues.length != validMoveOptions.length) {
+            console.log(actualReturnedValues)
+            console.log(validMoveOptions)
+            console.error("Method getValidPlayerMovesAt is not returning the expected number of values...")        
+            return
+        }
+
+        var AllTestsPass = true
+        
+        for (var i = 0; i < actualReturnedValues.length; i++)
+            AllTestsPass = AllTestsPass && validMoveOptions.includes(actualReturnedValues[i])
+
+        envUnderTest.setMaze(new Maze([[0,1,0],[1,0,1],[0,1,0]]))
+        playerLocation = [1,1]
+        envUnderTest.setPlayerLocation(playerLocation)
+        validMoveOptions =  []
+        actualReturnedValues = envUnderTest.getValidPlayerMovesAt(playerLocation)
+        
+        for (var i = 0; i < actualReturnedValues.length; i++)
+            AllTestsPass = AllTestsPass && validMoveOptions.includes(actualReturnedValues[i])
+
+        envUnderTest.setMaze(new Maze([[0,1,0],[1,0,1],[0,1,0]]))
+        playerLocation = [1,1]
+        envUnderTest.setPlayerLocation(playerLocation)
+        validMoveOptions =  []
+        actualReturnedValues = envUnderTest.getValidPlayerMovesAt(playerLocation)
+        
+        for (var i = 0; i < actualReturnedValues.length; i++)
+            AllTestsPass = AllTestsPass && validMoveOptions.includes(actualReturnedValues[i])
+
+        if (AllTestsPass)
+            console.log("get valid moves at method is working!")
+        else 
+            console.error("get valid moves at method is not working...") 
     }
 }
 

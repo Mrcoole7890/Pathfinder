@@ -164,4 +164,19 @@ class Enviorment {
 
         return validDirections
     }
+
+    getValidPlayerMovesAt(cords) {
+        var finalArray = new Array()
+
+        if ("Floor" == this.maze.getValueAt([cords[0]-1, cords[1]]))
+            finalArray.push("up")
+        if ("Floor" == this.maze.getValueAt([cords[0]+1, cords[1]]))
+            finalArray.push("down")
+        if ("Floor" == this.maze.getValueAt([cords[0], cords[1]-1]))
+            finalArray.push("left")
+        if ("Floor" == this.maze.getValueAt([cords[0], cords[1]+1]))
+            finalArray.push("right")
+
+        return finalArray
+    }
 }
