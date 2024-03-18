@@ -38,6 +38,7 @@ class Display{
         this.tileMapping.set("Floor", "blue")
         this.tileMapping.set("Player", "Green")
         this.tileMapping.set("Goal", "Yellow")
+        this.tileMapping.set("ExpandedNode", "gray")
     }
 
     getCanvasWidth() {
@@ -83,6 +84,14 @@ class Display{
         }
         this.drawPoint(this.enviorment.player, "Player")
         this.drawPoint(this.enviorment.goal, "Goal")
+    }
+
+    drawExplanedNodes() {
+        for (let i = 0; i < this.enviorment.expandedNodes.length; i++){
+            if (!this.enviorment.player.isEquals(this.enviorment.expandedNodes[i]) 
+            && !this.enviorment.goal.isEquals(this.enviorment.expandedNodes[i]))
+            this.drawPoint(this.enviorment.expandedNodes[i], "ExpandedNode")
+        }
     }
 
     drawPoint(pointObj, tileName) {
