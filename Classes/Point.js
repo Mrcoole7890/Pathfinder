@@ -48,4 +48,20 @@ class Point {
         else
             return false
     }
+
+    getPointFromDirection(direction) {
+        if (this.cords == null) {
+            console.warn("Attempting to get a point reletive to null. Returning null.")
+            return null
+        }
+
+        if (direction == "left" && this.cords[1] != 0)
+            return new Point([this.cords[0], this.cords[1]-1])
+        else if (direction == "right")
+            return new Point([this.cords[0], this.cords[1]+1])
+        else if (direction == "up" && this.cords[0] != 0)
+            return new Point([this.cords[0]-1, this.cords[1]])
+        else if (direction == "down")
+            return new Point([this.cords[0]+1, this.cords[1]])
+    }
 }
