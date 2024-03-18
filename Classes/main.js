@@ -32,6 +32,7 @@ class game {
         this.enviorment.setPlayerLocation(this.playerStart)
         this.enviorment.setGoalLocation(this.goalLocation)
         this.events = new EventHandling()
+        this.enviorment.expandedNodes = new Array()
 
         this.directionMap = new Map()
         this.directionMap.set("-1,0", "up")
@@ -41,7 +42,7 @@ class game {
 
         this.moveIndex = 0
 
-        this.goalNode = this.getPathAStar()
+        this.goalNode = this.getPathDFS()
         this.directions = this.getPathAsDirectionalSteps(this.goalNode)
 
         setInterval(() =>{
@@ -51,6 +52,8 @@ class game {
     
     loop() {
         this.display.draw()
+        this.display.drawExplanedNodes()
+
         if (this.directions.length > this.moveIndex)
             this.enviorment.movePlayer(this.directions[this.moveIndex++])
 
@@ -75,6 +78,7 @@ class game {
         while (unvisitiedNodes.length != 0) {
             var nodeToBeExpanded = unvisitiedNodes.pop()
             visitedNodes.push(nodeToBeExpanded)
+            this.enviorment.expandedNodes.push(nodeToBeExpanded)
             if (this.enviorment.goal.isEquals(nodeToBeExpanded))
                 return nodeToBeExpanded
             else {
@@ -109,6 +113,7 @@ class game {
         while (unvisitiedNodes.length != 0) {
             var nodeToBeExpanded = unvisitiedNodes.shift()
             visitedNodes.push(nodeToBeExpanded)
+            this.enviorment.expandedNodes.push(nodeToBeExpanded)
             if (this.enviorment.goal.isEquals(nodeToBeExpanded))
                 return nodeToBeExpanded
             else {
@@ -142,8 +147,8 @@ class game {
 
         while (unvisitiedNodes.length() != 0) {
             var nodeToBeExpanded = unvisitiedNodes.pop()
-            console.log(nodeToBeExpanded)
             visitedNodes.push(nodeToBeExpanded)
+            this.enviorment.expandedNodes.push(nodeToBeExpanded)
             if (this.enviorment.goal.isEquals(nodeToBeExpanded))
                 return nodeToBeExpanded
             else {
