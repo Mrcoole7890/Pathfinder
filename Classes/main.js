@@ -41,7 +41,7 @@ class game {
 
         this.moveIndex = 0
 
-        this.goalNode = this.getPathBFS()
+        this.goalNode = this.getPathDFS()
         this.directions = this.getPathAsDirectionalSteps(this.goalNode)
 
         setInterval(() =>{
@@ -74,6 +74,40 @@ class game {
 
         while (unvisitiedNodes.length != 0) {
             var nodeToBeExpanded = unvisitiedNodes.pop()
+            visitedNodes.push(nodeToBeExpanded)
+            if (this.enviorment.goal.isEquals(nodeToBeExpanded))
+                return nodeToBeExpanded
+            else {
+                var possibleMoves = this.enviorment.getValidPlayerMovesAt(nodeToBeExpanded.cords) 
+                var getAdjecentNodes = new Array()
+                for (var i = 0; i < possibleMoves.length; i++)
+                    getAdjecentNodes.push(nodeToBeExpanded.getPointFromDirection(possibleMoves[i]))
+
+                
+                for (var i = 0; i < getAdjecentNodes.length; i++){
+                    var isFound = false
+                    for (var j = 0; j < visitedNodes.length; j++){
+                        if (visitedNodes[j].isEquals(getAdjecentNodes[i])){
+                            isFound = true
+                        }
+                    }
+                    if (!isFound && getAdjecentNodes[i] != null){
+                        getAdjecentNodes[i].parent = nodeToBeExpanded
+                        unvisitiedNodes.push(getAdjecentNodes[i])
+                    }
+                }
+            }
+        }
+    }
+
+    getPathDFS() {
+        var visitedNodes = new Array()
+        var unvisitiedNodes = new Array()
+        this.enviorment.player.parent = null
+        unvisitiedNodes.push(this.enviorment.player)
+
+        while (unvisitiedNodes.length != 0) {
+            var nodeToBeExpanded = unvisitiedNodes.shift()
             visitedNodes.push(nodeToBeExpanded)
             if (this.enviorment.goal.isEquals(nodeToBeExpanded))
                 return nodeToBeExpanded
