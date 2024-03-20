@@ -31,6 +31,10 @@ class Enviorment {
         return this.maze
     }
 
+    getDistanceFromGoal(node) {
+        return Math.abs(this.getGoalLocation()[0] - node[0]) + Math.abs(this.getGoalLocation()[1] - node[1]) 
+    }
+
     setPlayerLocation(cords) {
         if (this.getMaze().maze.length <= cords[0]){
             console.warn("The Y cordinate cannot be larger than the height of the maze")

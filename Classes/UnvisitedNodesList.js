@@ -50,6 +50,6 @@ class UnvisitedNodesList {
     }
 
     length() {
-
+        return this.list.length
     }
 }

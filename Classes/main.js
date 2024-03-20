@@ -40,10 +40,9 @@ class game {
         this.directionMap.set("1,0", "down")
         this.directionMap.set("0,-1", "left")
 
+        this.pathfinderAgent = new Pathfinder("A*", this.enviorment)
         this.moveIndex = 0
-
-        this.goalNode = this.getPathDFS()
-        this.directions = this.getPathAsDirectionalSteps(this.goalNode)
+        this.directions = this.getPathAsDirectionalSteps(this.pathfinderAgent.getPath())
 
         setInterval(() =>{
             this.loop()
@@ -69,109 +68,6 @@ class game {
         // this.events.activeKeys = new Map()
     }
 
-    getPathBFS() {
-        var visitedNodes = new Array()
-        var unvisitiedNodes = new Array()
-        this.enviorment.player.parent = null
-        unvisitiedNodes.push(this.enviorment.player)
-
-        while (unvisitiedNodes.length != 0) {
-            var nodeToBeExpanded = unvisitiedNodes.pop()
-            visitedNodes.push(nodeToBeExpanded)
-            this.enviorment.expandedNodes.push(nodeToBeExpanded)
-            if (this.enviorment.goal.isEquals(nodeToBeExpanded))
-                return nodeToBeExpanded
-            else {
-                var possibleMoves = this.enviorment.getValidPlayerMovesAt(nodeToBeExpanded.cords) 
-                var getAdjecentNodes = new Array()
-                for (var i = 0; i < possibleMoves.length; i++)
-                    getAdjecentNodes.push(nodeToBeExpanded.getPointFromDirection(possibleMoves[i]))
-
-                
-                for (var i = 0; i < getAdjecentNodes.length; i++){
-                    var isFound = false
-                    for (var j = 0; j < visitedNodes.length; j++){
-                        if (visitedNodes[j].isEquals(getAdjecentNodes[i])){
-                            isFound = true
-                        }
-                    }
-                    if (!isFound && getAdjecentNodes[i] != null){
-                        getAdjecentNodes[i].parent = nodeToBeExpanded
-                        unvisitiedNodes.push(getAdjecentNodes[i])
-                    }
-                }
-            }
-        }
-    }
-
-    getPathDFS() {
-        var visitedNodes = new Array()
-        var unvisitiedNodes = new Array()
-        this.enviorment.player.parent = null
-        unvisitiedNodes.push(this.enviorment.player)
-
-        while (unvisitiedNodes.length != 0) {
-            var nodeToBeExpanded = unvisitiedNodes.shift()
-            visitedNodes.push(nodeToBeExpanded)
-            this.enviorment.expandedNodes.push(nodeToBeExpanded)
-            if (this.enviorment.goal.isEquals(nodeToBeExpanded))
-                return nodeToBeExpanded
-            else {
-                var possibleMoves = this.enviorment.getValidPlayerMovesAt(nodeToBeExpanded.cords) 
-                var getAdjecentNodes = new Array()
-                for (var i = 0; i < possibleMoves.length; i++)
-                    getAdjecentNodes.push(nodeToBeExpanded.getPointFromDirection(possibleMoves[i])) 
-                for (var i = 0; i < getAdjecentNodes.length; i++){
-                    var isFound = false
-                    for (var j = 0; j < visitedNodes.length; j++){
-                        if (visitedNodes[j].isEquals(getAdjecentNodes[i])){
-                            isFound = true
-                        }
-                    }
-                    if (!isFound && getAdjecentNodes[i] != null){
-                        getAdjecentNodes[i].parent = nodeToBeExpanded
-                        unvisitiedNodes.push(getAdjecentNodes[i])
-                    }
-                }
-            }
-        }
-    }
-
-    getPathAStar() {
-        var visitedNodes = new Array()
-        var unvisitiedNodes = new PQ()
-        this.enviorment.player.parent = null
-        unvisitiedNodes.push(this.enviorment.player, this.getDistanceFromGoal(this.enviorment.player.cords))
-
-        while (unvisitiedNodes.length() != 0) {
-            var nodeToBeExpanded = unvisitiedNodes.pop()
-            visitedNodes.push(nodeToBeExpanded)
-            this.enviorment.expandedNodes.push(nodeToBeExpanded)
-            if (this.enviorment.goal.isEquals(nodeToBeExpanded))
-                return nodeToBeExpanded
-            else {
-                var possibleMoves = this.enviorment.getValidPlayerMovesAt(nodeToBeExpanded.cords) 
-                var getAdjecentNodes = new Array()
-                for (var i = 0; i < possibleMoves.length; i++)
-                    getAdjecentNodes.push(nodeToBeExpanded.getPointFromDirection(possibleMoves[i]))
-
-                
-                for (var i = 0; i < getAdjecentNodes.length; i++){
-                    var isFound = false
-                    for (var j = 0; j < visitedNodes.length; j++){
-                        if (visitedNodes[j].isEquals(getAdjecentNodes[i])){
-                            isFound = true
-                        }
-                    }
-                    if (!isFound && getAdjecentNodes[i] != null){
-                        getAdjecentNodes[i].parent = nodeToBeExpanded
-                        unvisitiedNodes.push(getAdjecentNodes[i], this.getDistanceFromGoal(getAdjecentNodes[i].cords))
-                    }
-                }
-            }
-        }
-    }
-
     getPathAsDirectionalSteps(pathFinderFunction) {
         var goalNode = pathFinderFunction
         var path = new Array()
@@ -187,10 +83,6 @@ class game {
         }
 
         return movesAsWords
-    }
-
-    getDistanceFromGoal(node) {
-        return Math.abs(this.goalLocation[0] - node[0]) + Math.abs(this.goalLocation[1] - node[1]) 
     }
 
 }

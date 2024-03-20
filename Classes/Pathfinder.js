@@ -16,6 +16,43 @@ class Pathfinder {
         }
         else
             this.enviorment = enviorment
+
+        this.unvisitiedNodes = new UnvisitedNodesList(type)
         
+    }
+
+    getPath() {
+        var visitedNodes = new Array()
+        var unvisitiedNodes = this.unvisitiedNodes
+        this.enviorment.player.parent = null
+        unvisitiedNodes.push(this.enviorment.player, this.enviorment.getDistanceFromGoal(this.enviorment.player.cords))
+
+        while (unvisitiedNodes.length() != 0) {
+            var nodeToBeExpanded = unvisitiedNodes.pop()
+            visitedNodes.push(nodeToBeExpanded)
+            this.enviorment.expandedNodes.push(nodeToBeExpanded)
+            if (this.enviorment.goal.isEquals(nodeToBeExpanded))
+                return nodeToBeExpanded
+            else {
+                var possibleMoves = this.enviorment.getValidPlayerMovesAt(nodeToBeExpanded.cords) 
+                var getAdjecentNodes = new Array()
+                for (var i = 0; i < possibleMoves.length; i++)
+                    getAdjecentNodes.push(nodeToBeExpanded.getPointFromDirection(possibleMoves[i]))
+
+                
+                for (var i = 0; i < getAdjecentNodes.length; i++){
+                    var isFound = false
+                    for (var j = 0; j < visitedNodes.length; j++){
+                        if (visitedNodes[j].isEquals(getAdjecentNodes[i])){
+                            isFound = true
+                        }
+                    }
+                    if (!isFound && getAdjecentNodes[i] != null){
+                        getAdjecentNodes[i].parent = nodeToBeExpanded
+                        unvisitiedNodes.push(getAdjecentNodes[i], this.enviorment.getDistanceFromGoal(getAdjecentNodes[i].cords))
+                    }
+                }
+            }
+        }
     }
 }
