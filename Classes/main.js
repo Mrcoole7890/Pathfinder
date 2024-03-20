@@ -47,7 +47,7 @@ class game {
 
         setInterval(() =>{
             this.loop()
-        }, 1000)
+        }, 250)
     }
     
     loop() {
@@ -67,7 +67,7 @@ class game {
         // if (this.events.activeKeys.get("s"))
         //     this.enviorment.movePlayer("down")
         // this.events.activeKeys = new Map()
-    }  
+    }
 
     getPathBFS() {
         var visitedNodes = new Array()
@@ -120,9 +120,7 @@ class game {
                 var possibleMoves = this.enviorment.getValidPlayerMovesAt(nodeToBeExpanded.cords) 
                 var getAdjecentNodes = new Array()
                 for (var i = 0; i < possibleMoves.length; i++)
-                    getAdjecentNodes.push(nodeToBeExpanded.getPointFromDirection(possibleMoves[i]))
-
-                
+                    getAdjecentNodes.push(nodeToBeExpanded.getPointFromDirection(possibleMoves[i])) 
                 for (var i = 0; i < getAdjecentNodes.length; i++){
                     var isFound = false
                     for (var j = 0; j < visitedNodes.length; j++){
@@ -192,7 +190,7 @@ class game {
     }
 
     getDistanceFromGoal(node) {
-        return this.goalLocation[0] - node[0] + this.goalLocation[1] - node[1] 
+        return Math.abs(this.goalLocation[0] - node[0]) + Math.abs(this.goalLocation[1] - node[1]) 
     }
 
 }
