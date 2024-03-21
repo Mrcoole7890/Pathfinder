@@ -1,4 +1,21 @@
+/*
+
+Display object takes the enviorment state and draws it to the canvas tag
+
+*/
 class Display{
+    /*
+
+    Constructor takes an Enviorment object along with a tile size as an int
+
+    Invalid parameters will cause the related fields to be set to null or zero
+
+    After feilds are set, a canvas tag is inserted into the document tag of the HTML page
+    its dimentions will be the tile size multiplied by the Enviorment width and height
+
+    Titles within the enviorment are given colors inicated by the mapping
+
+    */
     constructor(env, tileSize) {
         if (env == null){
             console.warn("Initializing Display with null enviorment paramenter.")
@@ -41,6 +58,10 @@ class Display{
         this.tileMapping.set("ExpandedNode", "gray")
     }
 
+    /*
+    Takes the width attribute of the canvas and returns the parsed value as an int
+    If none is found then 0 is returned
+    */
     getCanvasWidth() {
         if (this.canvasElement.getAttribute("width") == null){
             console.error("Attempting to get the width of unset canvas...")
@@ -49,14 +70,22 @@ class Display{
         return parseInt(this.canvasElement.getAttribute("width"))
     }
 
+    /*
+    Takes the heigh attribute of the canvas and returns the parsed value as an int
+    If none is found then 0 is returned
+    */
     getCanvasHeight() {
         if (this.canvasElement.getAttribute("height") == null) {
             console.error("Attempting to get the height of unset canvas...")
             return 0
         }
         return parseInt(this.canvasElement.getAttribute("height"))
-    }
+     }
 
+    /*
+    Sets the width of the actual canvas based on the width of the Eviorment object's maze
+    If the maze is not set within the Enviorment a warning is thrown and the width is set to zero
+    */
     setCanvasWidth() {
         if (this.enviorment == null)
             this.warnAndRevertAttribute("Attempting to set canvas width when there is no enviorment set. Setting width to 0.", "width")
@@ -66,6 +95,10 @@ class Display{
            this.canvasElement.setAttribute("width", this.enviorment.getMaze().getWidth() * this.tileSize)
     }
     
+    /*
+    Sets the height of the actual canvas based on the height of the Eviorment object's maze
+    If the maze is not set within the Enviorment a warning is thrown and the height is set to zero
+    */
     setCanvasHeight() {
         if (this.enviorment == null)
             this.warnAndRevertAttribute("Attempting to set canvas height when there is no enviorment set. Setting height to 0.", "height")
@@ -75,6 +108,9 @@ class Display{
            this.canvasElement.setAttribute("height", this.enviorment.getMaze().getWidth() * this.tileSize)
     }
     
+    /*
+    draws the canvas to represent the current state of the enviorment
+    */
     draw() {
         for (let i = 0; i < this.enviorment.getMaze().getHeight(); i++){
             for (let j = 0; j < this.enviorment.getMaze().getWidth(); j++) {
@@ -86,6 +122,9 @@ class Display{
         this.drawPoint(this.enviorment.goal, "Goal")
     }
 
+    /*
+    draws expanded nodes within the enviorment
+    */
     drawExplanedNodes() {
         for (let i = 0; i < this.enviorment.expandedNodes.length; i++){
             if (!this.enviorment.player.isEquals(this.enviorment.expandedNodes[i]) 
@@ -94,6 +133,9 @@ class Display{
         }
     }
 
+    /*
+    draws a tile based on the tile size, Point position, and color mapping
+    */
     drawPoint(pointObj, tileName) {
         if (pointObj.constructor.name != "Point") {
             console.warn("attempting to draw an unexpected object: " + pointObj.constructor.name)
@@ -102,6 +144,10 @@ class Display{
         this.ctx.fillStyle = this.tileMapping.get(tileName)
         this.ctx.fillRect(this.tileSize * pointObj.getCords()[1], this.tileSize * pointObj.getCords()[0], this.tileSize, this.tileSize)
     }
+
+    /*
+    prints a console.warn alert and sets the attribute to zero
+    */
     warnAndRevertAttribute(warning, attributeName) {
            console.warn(warning)
            this.canvasElement.setAttribute(attributeName, 0)
