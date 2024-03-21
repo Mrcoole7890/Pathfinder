@@ -15,7 +15,6 @@ Enviorment Object will:
 - have a function to return valid moves from the players position
 
 */
-
 class Enviorment {
     constructor() {
         this.player = new Point(null)
@@ -23,18 +22,33 @@ class Enviorment {
         this.maze = null
     }
 
+    /*
+    Without performing validation, sets maze property to the parameter
+    */
     setMaze(maze) {
         this.maze = maze    
     }
 
+    /*
+    returns the value of the maze property
+    */
     getMaze() {
         return this.maze
     }
 
+    /*
+    Valuation method used to get the distance from the goal given the parameter node's location
+    no type validation is done
+    */
     getDistanceFromGoal(node) {
         return Math.abs(this.getGoalLocation()[0] - node[0]) + Math.abs(this.getGoalLocation()[1] - node[1]) 
     }
 
+    /*
+    creates a Point object using the parameter (with validation) and sets the player property to that object
+    if validation is failed the player property is set to null
+    no type validation is applied
+    */
     setPlayerLocation(cords) {
         if (this.getMaze().maze.length <= cords[0]){
             console.warn("The Y cordinate cannot be larger than the height of the maze")
@@ -49,10 +63,18 @@ class Enviorment {
         this.player.setCords(cords)  
     }
     
+    /*
+    returns the an array of size 2 containing the x and y cordinates of the player point
+    */    
     getPlayerLocation() {
         return this.player.getCords()
     }
 
+    /*
+    creates a Point object using the parameter (with validation) and sets the goal property to that object
+    if validation is failed the goal property is set to null
+    no type validation is applied
+    */
     setGoalLocation(cords) {
         if (this.getMaze().maze.length <= cords[0]){
             console.warn("The Y cordinate cannot be larger than the height of the maze")
@@ -67,6 +89,9 @@ class Enviorment {
         this.goal.setCords(cords)  
     }
 
+    /*
+    returns the an array of size 2 containing the x and y cordinates of the player point
+    */
     getGoalLocation() {
         return this.goal.getCords()
     }
@@ -91,6 +116,15 @@ class Enviorment {
         }
     }
 
+    /*
+    takes a string value expected to be "up", "down", "left", or "right"
+    validates the player location is set
+    sets the player location to be adjacent relative the the directional string
+    if the parameter is not one of the expected string forms then the position is not changed
+    if the player attempts to move into a wall the position is not changed
+    if the loctaion the player is attempting to move to is out of bounds the position is not changed
+    a bool is returned to validate a successful change of postion
+    */
     movePlayer(direction) {
         var currPlayerLocation = this.getPlayerLocation()
         if (currPlayerLocation == null){
@@ -136,9 +170,12 @@ class Enviorment {
             return false
         }
         else return true
-
     }
 
+    /*
+    attempts to move player in a direction
+    if the move function returns true the move is considered valid and the player is moved back to its original postion
+    */
     isValidMove(direction) {
         var currPlayerLocation = this.getPlayerLocation()
         if(this.movePlayer(direction) == true){
@@ -151,6 +188,10 @@ class Enviorment {
         } 
     }
 
+    /*
+    Iterates through all directions the player can move
+    if the move is valid it is added to the final array of valid moves
+    */
     getValidPlayerMoves() {
         var possibleDirections = [
             "left",
@@ -169,6 +210,10 @@ class Enviorment {
         return validDirections
     }
 
+    /*
+    Gets a cordinate and checks all directions for a wall
+    returns are directions that dont return a wall
+    */
     getValidPlayerMovesAt(cords) {
         var finalArray = new Array()
 
