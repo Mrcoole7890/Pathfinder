@@ -1,4 +1,8 @@
 class Pathfinder {
+    /*
+    takes a string as the type parameter and a Enviorment object for the second object
+    performs validation on both the string and the Enviorment and then sets them
+    */
     constructor(type, enviorment) {
 
         if (enviorment == null || enviorment == undefined || enviorment.constructor.name != "Enviorment") {
@@ -21,6 +25,9 @@ class Pathfinder {
         
     }
 
+    /*
+    Performs a search based on the type set in durring construction
+    */
     getPath() {
         var visitedNodes = new Array()
         var unvisitiedNodes = this.unvisitiedNodes
