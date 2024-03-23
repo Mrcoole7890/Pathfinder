@@ -8,6 +8,10 @@ Point Object will:
 
 class Point {
 
+    /*
+    takes an array of size two, performs validation
+    and sets the cordniate value
+    */
     constructor(pointCords) {
         this.cords = null
         if (!Array.isArray(pointCords))
@@ -26,6 +30,9 @@ class Point {
             this.cords = pointCords
     }
 
+    /*
+    sets cordinate value of the object
+    */
     setCords(pointCords) {
         var tempPoint = new Point(pointCords)
         if (this.cords != null && tempPoint.getCords() == null)
@@ -34,10 +41,16 @@ class Point {
         return this
     }
 
+    /*
+    gets the cordinate values
+    */
     getCords() {
         return this.cords
     }
 
+    /*
+    compares the two values within each cord property and validates that they are equal
+    */
     isEquals(otherCords) {
         if ((otherCords.getCords() == null && !(this.getCords() == null)) || (!(otherCords.getCords() == null) && this.getCords() == null))
             return false
@@ -49,6 +62,9 @@ class Point {
             return false
     }
 
+    /*
+    returns a cordinate value respective to the direction put in the parameter
+    */
     getPointFromDirection(direction) {
         if (this.cords == null) {
             console.warn("Attempting to get a point reletive to null. Returning null.")
