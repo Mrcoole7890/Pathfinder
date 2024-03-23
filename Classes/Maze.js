@@ -11,6 +11,9 @@ Maze Object will:
 */
 
 class Maze {
+    /*
+    Takes a 2d array of, validates the array is within the expected parameters and then constructs the object
+    */
     constructor(mazeAsTwoDArray){
         this.maze = mazeAsTwoDArray
         this.valueMap = new Map()
@@ -36,18 +39,28 @@ class Maze {
         }
     }
 
+    /*
+    if the maze is set, the width of the array is returned
+    */
     getWidth() {
         if (this.maze != null)
             return this.maze[0].length
         return false
     }
 
+    /*
+    if the maze is set, the height of the array is returned
+    */
     getHeight() {
         if (this.maze != null)
             return this.maze.length
         return false
     }
 
+    /*
+    takes an array of size 2, validates the size of of the array and makes sure it is not null
+    then returns the value of the given cordinate
+    */
     getValueAt(cord) {
         if (cord == null) {
             console.warn("Cannot get value of null cordinate")
@@ -68,7 +81,9 @@ class Maze {
         else
             return this.valueMap.get(this.maze[cord[0]][cord[1]])
     }
-
+    /*
+    if the maze is not null the maze is turned into a string with line breaks for every subarray
+    */
     getMazeAsString() {
         if (this.maze == null) return null
         var finalString = " "
