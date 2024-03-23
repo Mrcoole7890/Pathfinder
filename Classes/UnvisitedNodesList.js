@@ -1,3 +1,6 @@
+/*
+wrapper for making list operations uniform when used to determine which nodes to expand in the pathfinder
+*/
 class UnvisitedNodesList {
     constructor(type) {
         this.list = new Array()
