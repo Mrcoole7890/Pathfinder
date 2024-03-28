@@ -4,7 +4,7 @@
   "description": "Pathfinder side project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Mrcoole7890/Pathfinder/issues"
   },
-  "homepage": "https://github.com/Mrcoole7890/Pathfinder#readme"
+  "homepage": "https://github.com/Mrcoole7890/Pathfinder#readme",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "node": "^18.20.0"
+  }
 }
