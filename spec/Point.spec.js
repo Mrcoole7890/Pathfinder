@@ -8,7 +8,7 @@ describe('Point Class', () => {
         expect(pointObjectUnderTesting.setCords([0,1]).getCords()[0]).toBe(0)
         expect(pointObjectUnderTesting.setCords([0,1]).getCords()[1]).toBe(1)
     });
-    it('should set its x and y values to null when invalid inputs are given', () =>{
+    it('should set its x and y values to null when invalid inputs are given', () => {
         var pointObjectUnderTesting = new Points.Point(null)
         var validPoint = new Points.Point([1,1])
         expect(pointObjectUnderTesting.getCords()).toBe(null)
@@ -24,5 +24,15 @@ describe('Point Class', () => {
         expect(validPoint.getCords()[1]).toBe(1)
         expect(pointObjectUnderTesting.setCords(validPoint.getCords()).getCords()[0]).toBe(1)
         expect(validPoint.getCords()[1]).toBe(1)
+    });
+    it('should compare two points based on their x and y cordinates and return a bool correctly', () => {
+        var pointOne = new Points.Point([1,1])
+        var pointTwo = new Points.Point([1,1])
+        var pointThree = new Points.Point(null)
+        var pointFour = new Points.Point([1,5])
+        expect(pointOne.isEquals(pointTwo)).toBe(true)
+        expect(pointThree.isEquals(new Points.Point(null))).toBe(true)
+        expect(pointThree.isEquals(pointTwo)).toBe(false)
+        expect(pointOne.isEquals(pointFour)).toBe(false)
     });
 });
