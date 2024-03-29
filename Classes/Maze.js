@@ -95,3 +95,5 @@ class Maze {
         return finalString
     }
 }
+
+exports.Maze = Maze
