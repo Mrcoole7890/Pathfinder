@@ -26,10 +26,10 @@ describe('Point Class', () => {
         expect(validPoint.getCords()[1]).toBe(1)
     });
     it('should compare two points based on their x and y cordinates and return a bool correctly', () => {
-        var pointOne = new Points.Point([1,1])
-        var pointTwo = new Points.Point([1,1])
-        var pointThree = new Points.Point(null)
-        var pointFour = new Points.Point([1,5])
+        var pointOne = new Points.Point([1,1]) // simple cordinate
+        var pointTwo = new Points.Point([1,1])  // should be equal to point one
+        var pointThree = new Points.Point(null) // should be able to compare null points
+        var pointFour = new Points.Point([1,5]) // should not be equals to point one or point two
         expect(pointOne.isEquals(pointTwo)).toBe(true)
         expect(pointThree.isEquals(new Points.Point(null))).toBe(true)
         expect(pointThree.isEquals(pointTwo)).toBe(false)
