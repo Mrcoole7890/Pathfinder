@@ -22,11 +22,5 @@ pipeline {
                 sh 'npm test'
             }
         }
-
-        stage('Deploy') {
-            steps {
-                input message: "Finished the pipeline! Click 'Proceed' to continue"
-            }
-        }
     }
 }
