@@ -22,4 +22,13 @@ describe('Maze Class', () => {
         expect(mazeUnderTesting.valueMap.get(2)).toBe("Player")
         expect(mazeUnderTesting.valueMap.get(3)).toBe("Goal")
     });
+    it('should return the value of a cell at a given point in the maze and return null otherwise', () => {
+        var mazeUnderTesting = new Mazes.Maze([[0,0,0],[1,0,0],[1,0,0]])
+        expect(mazeUnderTesting.getValueAt([3,0])).toBe(null)
+        expect(mazeUnderTesting.getValueAt([0,3])).toBe(null)
+        expect(mazeUnderTesting.getValueAt([-1,0])).toBe(null)
+        expect(mazeUnderTesting.getValueAt([0,-1])).toBe(null)
+        expect(mazeUnderTesting.getValueAt([0,0])).toBe("Floor")
+        expect(mazeUnderTesting.getValueAt([1,0])).toBe("Wall")
+    });
 });
