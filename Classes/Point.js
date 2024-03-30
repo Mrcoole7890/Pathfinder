@@ -81,3 +81,5 @@ class Point {
             return new Point([this.cords[0]+1, this.cords[1]])
     }
 }
+
+exports.Point = Point

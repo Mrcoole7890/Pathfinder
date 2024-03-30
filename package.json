@@ -1,0 +1,25 @@
+{
+  "name": "pathfinder",
+  "version": "1.0.0",
+  "description": "Pathfinder side project",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mrcoole7890/Pathfinder.git"
+  },
+  "author": "Cole Kendall",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mrcoole7890/Pathfinder/issues"
+  },
+  "homepage": "https://github.com/Mrcoole7890/Pathfinder#readme",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "node": "^18.20.0"
+  }
+}
