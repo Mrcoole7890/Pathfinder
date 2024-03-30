@@ -15,4 +15,11 @@ describe('Maze Class', () => {
         expect(new Mazes.Maze(3).getMazeAsString()).toBe(null)
         expect(new Mazes.Maze([[0,1,0],[0,0],[1,0,0]]).getMazeAsString()).toBe(null)
     });
+    it('should have certain integers maped to string values', () => {
+        var mazeUnderTesting = new Mazes.Maze([[0,1,0],[0,0,0],[1,0,0]])
+        expect(mazeUnderTesting.valueMap.get(0)).toBe("Floor")
+        expect(mazeUnderTesting.valueMap.get(1)).toBe("Wall")
+        expect(mazeUnderTesting.valueMap.get(2)).toBe("Player")
+        expect(mazeUnderTesting.valueMap.get(3)).toBe("Goal")
+    });
 });
