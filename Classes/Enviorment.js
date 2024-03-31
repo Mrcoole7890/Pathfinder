@@ -1,3 +1,4 @@
+
 /*
 
 Enviorment Object will:
@@ -17,8 +18,17 @@ Enviorment Object will:
 */
 class Enviorment {
     constructor() {
-        this.player = new Point(null)
-        this.goal = new Point(null)
+        try {     
+            this.player = new Point(null)
+            this.goal = new Point(null)
+        }
+        catch(e) {
+            if (e instanceof ReferenceError) {
+                var Points = require("../Classes/Point.js")
+                this.player = new Points.Point(null)
+                this.goal = new Points.Point(null)
+            }
+        }
         this.maze = null
     }
 
@@ -229,3 +239,5 @@ class Enviorment {
         return finalArray
     }
 }
+
+exports.Enviorment = Enviorment
