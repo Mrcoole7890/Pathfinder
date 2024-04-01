@@ -15,6 +15,7 @@ class Queue {
 
     // returns the front node in the list
     // when the queue is empty pop should return null
+    // decrement the length value of list if the length of the list is not 0
     pop() {
         
     }

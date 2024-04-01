@@ -14,6 +14,7 @@ class PriorityQueue {
 
     // returns the node with the lowest value in the heap
     // when the heap is empty pop should return null
+    // decrement the length value of list if the length of the list is not 0
     pop() {
         
     }
