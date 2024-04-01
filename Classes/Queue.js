@@ -14,6 +14,7 @@ class Queue {
     }
 
     // returns the front node in the list
+    // when the queue is empty pop should return null
     pop() {
         
     }

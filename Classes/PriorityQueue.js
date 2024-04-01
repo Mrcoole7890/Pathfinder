@@ -13,6 +13,7 @@ class PriorityQueue {
     }
 
     // returns the node with the lowest value in the heap
+    // when the heap is empty pop should return null
     pop() {
         
     }
