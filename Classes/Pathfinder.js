@@ -21,8 +21,12 @@ class Pathfinder {
         else
             this.enviorment = enviorment
 
-        this.unvisitiedNodes = new UnvisitedNodesList(type)
-        
+        try {
+            this.unvisitiedNodes = new UnvisitedNodesList(type)
+        } catch(e) {
+            var UnvisitedNodeLists = require("../Classes/UnvisitedNodesList.js")
+            this.unvisitiedNodes = new UnvisitedNodeLists.UnvisitedNodesList(type)
+        }
     }
 
     /*
@@ -63,3 +67,5 @@ class Pathfinder {
         }
     }
 }
+
+exports.Pathfinder = Pathfinder
