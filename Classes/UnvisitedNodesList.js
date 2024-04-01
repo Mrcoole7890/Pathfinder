@@ -56,3 +56,5 @@ class UnvisitedNodesList {
         return this.list.length
     }
 }
+
+exports.UnvisitedNodesList = UnvisitedNodesList
