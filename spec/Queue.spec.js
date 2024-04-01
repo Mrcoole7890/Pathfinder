@@ -6,7 +6,9 @@ describe('Queue class', () => {
         expect(q.length).toBe(0)
     });
     it('when push is called, add one to the length of the list', () => {
-        fail("unimplemented test case")
+        var q = new Queues.Queue()
+        var qOldLength = q.length
+        expect(qOldLength).toBe(qOldLength + 1)
     });
     it('when push is called, takes item params and adds it to the queue', () => {
         fail("unimplemented test case")

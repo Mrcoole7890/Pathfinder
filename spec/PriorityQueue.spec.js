@@ -6,7 +6,9 @@ describe('PriorityQueue class', () => {
         expect(pq.length).toBe(0)
     });
     it('when push is called, add one to the length of the list', () => {
-        fail("unimplemented test case")
+        var pq = new PriorityQueues.PriorityQueue()
+        var pqOldLength = pq.length
+        expect(pqOldLength).toBe(pqOldLength + 1)
     });
     it('when push is called, takes item and value params and adds them to the heap', () => {
         fail("unimplemented test case")
