@@ -19,11 +19,15 @@ describe('Queue class', () => {
     });
     it('when pop is called, the front node in the list is retruned', () => {
         var q = new Queues.Queue()
-        var expectedValue = 0x1
-        q.push(expectedValue, null)
-        q.push("random value", 64)
-        q.push(21, false)
-        expect(q.pop()).toBe(expectedValue)
+        var expectedValue = [0x1, "random value", 21]
+        q.push(expectedValue[0], null)
+        q.push(expectedValue[1], 64)
+        q.push(expectedValue[2], false)
+        expect(q.pop()).toBe(expectedValue[0])
+        expect(q.pop()).toBe(expectedValue[1])
+        expect(q.pop()).toBe(expectedValue[2])
+        expect(q.pop()).toBe(undefined)
+
     });
     it('when pop is called and the length of the list is not 0, decrement the length value of list', () => {
         var q = new Queues.Queue()
@@ -34,5 +38,9 @@ describe('Queue class', () => {
         var qExpectedLength = 3
         q.pop()
         expect(q.length).toBe(qExpectedLength - 1)
+        q.pop()
+        expect(q.length).toBe(qExpectedLength - 2)
+        q.pop()
+        expect(q.length).toBe(qExpectedLength - 3)
     });
 });
