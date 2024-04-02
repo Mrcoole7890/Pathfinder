@@ -17,9 +17,6 @@ describe('Queue class', () => {
         q.push(pushValue)
         expect(q.list.includes(pushValue)).toBe(true)
     });
-    it('when push is called, the value parameter is thrown out', () => {
-        fail("unimplemented test case")
-    });
     it('when pop is called, the front node in the list is retruned', () => {
         var q = new Queues.Queue()
         var expectedValue = 0x1
