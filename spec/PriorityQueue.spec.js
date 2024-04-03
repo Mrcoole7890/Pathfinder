@@ -1,4 +1,3 @@
-const exp = require("constants");
 var PriorityQueues = require("../Classes/PriorityQueue.js")
 
 describe('PriorityQueue class', () => {
