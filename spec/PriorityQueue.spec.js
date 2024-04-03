@@ -8,19 +8,20 @@ describe('PriorityQueue class', () => {
     it('when push is called, add one to the length of the list', () => {
         var pq = new PriorityQueues.PriorityQueue()
         var pqOldLength = pq.length
-        expect(pqOldLength).toBe(pqOldLength + 1)
+        pq.push(1,1)
+        expect(pq.length).toBe(pqOldLength + 1)
     });
     it('when push is called, takes item and value params and adds them to the heap', () => {
         var pq = new PriorityQueues.PriorityQueue()
-        var pushValue = "string value"
-        pq.push(pushValue)
-        expect(pq.list.includes(pushValue)).toBe(true)
+        var pushValue = ["string value", 0]
+        pq.push(pushValue[0], pushValue[1])
+        expect(pq.list.some(i => { return i[0] == pushValue[0] && i[1] == pushValue[1]})).toBe(true)
     });
     it('when pop is called, the node with the lowest value in the heap is retruned', () => {
         var pq = new PriorityQueues.PriorityQueue()
-        var expectedValue = 0x1
-        pq.push(expectedValue, 0)
+        var expectedValue = 1
         pq.push("random value", 5)
+        pq.push(expectedValue, 0)
         pq.push(21, 7)
         expect(pq.pop()).toBe(expectedValue)
     });
