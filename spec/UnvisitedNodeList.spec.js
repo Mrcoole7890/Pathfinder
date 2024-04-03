@@ -20,14 +20,13 @@ describe('UnvisitedNodeList Class', () => {
         unvisitedNodesList.push(1, 5)
         unvisitedNodesList.push(2, 2)
         unvisitedNodesList.push(3, 17)
-
         expect(unvisitedNodesList.pop()).toBe(2)
         expect(unvisitedNodesList.pop()).toBe(1)
         expect(unvisitedNodesList.pop()).toBe(3)
-        expect(unvisitedNodesList.pop()).toBe(null)
+        expect(unvisitedNodesList.pop()).toBe(undefined)
     });
     it('should return the last item pushed in the list when BFS is set and pop is called', () => {
-        var unvisitedNodesList = new UnvisitedNodeLists.UnvisitedNodesList("BFS")
+        var unvisitedNodesList = new UnvisitedNodeLists.UnvisitedNodesList("DFS")
 
         unvisitedNodesList.push(1, null)
         unvisitedNodesList.push(2, 8)
@@ -39,7 +38,7 @@ describe('UnvisitedNodeList Class', () => {
         expect(unvisitedNodesList.pop()).toBe(undefined)
     });
     it('should return the first item pushed in the list when DFS is set and pop is called', () => {
-        var unvisitedNodesList = new UnvisitedNodeLists.UnvisitedNodesList("DFS")
+        var unvisitedNodesList = new UnvisitedNodeLists.UnvisitedNodesList("BFS")
 
         unvisitedNodesList.push(1, null)
         unvisitedNodesList.push(2, 8)

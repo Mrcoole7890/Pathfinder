@@ -3,7 +3,6 @@ wrapper for making list operations uniform when used to determine which nodes to
 */
 class UnvisitedNodesList {
     constructor(type) {
-        this.list = new Array()
         
         if (type !== "DFS"
             && type !== "BFS" 
@@ -12,6 +11,27 @@ class UnvisitedNodesList {
         }
         else{
             this.type = type
+            switch(this.type) {
+                case "A*":
+                    try {
+                        this.list = new PriorityQueue()
+                    } catch (e) {
+                        var PriorityQueues = require('../Classes/PriorityQueue.js')
+                        this.list = new PriorityQueues.PriorityQueue()
+                    }
+                    break
+                case "BFS":
+                    try {
+                        this.list = new Queue()
+                    } catch (e) {
+                        var Queues = require('../Classes/Queue.js')
+                        this.list = new Queues.Queue()
+                    }
+                    break
+                case "DFS":
+                    this.list = new Array()
+
+            }
         }
     }
 
@@ -19,35 +39,17 @@ class UnvisitedNodesList {
         if (this.type !== "A*")
             this.list.push(item)
         else 
-            this.list.push([item, value])
+            this.list.push(item, value)
     }
 
     pop() {
         switch(this.type){
             case "A*":
-                if (this.list == null)
-                    return null
-                else if (this.list.length == 0)
-                    return null
-                
-                var smallestValue = Number.POSITIVE_INFINITY
-                var finalIndex = null
-                for (var i = 0; i < this.list.length; i++) { 
-                    if(this.list[i][1] <= smallestValue){
-                        finalIndex = i
-                        smallestValue = this.list[i][1]
-                    }
-                }
-                var finalValue = this.list[finalIndex][0]
-                this.list.splice(finalIndex,1)
-                if(finalIndex != null)
-                    return finalValue
-                else 
-                    return null
+                return this.list.pop()
             case "BFS":
                 return this.list.pop()
             case "DFS":
-                return this.list.shift()
+                return this.list.pop()
         }
 
     }
