@@ -151,5 +151,13 @@ class Display{
     warnAndRevertAttribute(warning, attributeName) {
            console.warn(warning)
            this.canvasElement.setAttribute(attributeName, 0)
-    }  
+    } 
+    
+    getMouseCords(mouseStats) {
+        var rect = this.canvasElement.getBoundingClientRect()
+        return {
+            x: mouseStats.x - rect.left,
+            y: mouseStats.y - rect.top
+        }
+    }
 }
